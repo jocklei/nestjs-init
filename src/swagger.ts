@@ -12,14 +12,4 @@ export const swagger = (app: INestApplication) => {
 
   const carDocument = SwaggerModule.createDocument(app, carOptions);
   SwaggerModule.setup('api', app, carDocument);
-
-  // user
-  const userOptions = new DocumentBuilder()
-    .setTitle('User management')
-    .setDescription('The user API description')
-    .setVersion('1.0.0')
-    .build();
-
-  const userDocument = SwaggerModule.createDocument(app, userOptions);
-  SwaggerModule.setup('api', app, userDocument);
 };
