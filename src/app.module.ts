@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common';
 import { Connection } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CarModule } from './carModule/car.module';
 import { SharedModule } from './shared/shared.module';
+
+import { CarModule } from './carModule/car.module';
 import { DistributorModule } from './distributorModule/distributor.module';
 
 import { Car } from './carModule/car.entity';

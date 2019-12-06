@@ -8,11 +8,12 @@ import { IQueryResponse, IQueryResponseNoDataMsg } from '../core/paging-query';
 
 import { Car } from './car.entity';
 import { CarService } from './car.service';
+import { ConfigService } from '../configModule/config.service';
 
 @ApiUseTags('车型管理')
 @Controller('cars')
 export class CarController {
-  constructor(private catsService: CarService) { }
+  constructor(private catsService: CarService, private config: ConfigService) { }
 
   @Get()
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
@@ -36,4 +37,8 @@ export class CarController {
       return result;
     }
   }
+
+  @Get('config')
+  @ApiResponse({ status: 200, type: Car, description: '成功.' })
+  findConfig() { return this.config; }
 }
