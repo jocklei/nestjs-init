@@ -3,13 +3,14 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 export const swagger = (app: INestApplication) => {
 
-  // car
-  const carOptions = new DocumentBuilder()
-    .setTitle('Car management')
-    .setDescription('The cars API description')
+  const swaggerOptions = new DocumentBuilder()
     .setVersion('1.0.0')
+    .setTitle('汽车销售服务管理系统')
+    .setBasePath('http://localhost:3000/api/v1/')
+    .setDescription('汽车销售服务管理系统API文档')
     .build();
 
-  const carDocument = SwaggerModule.createDocument(app, carOptions);
-  SwaggerModule.setup('api', app, carDocument);
+  const document = SwaggerModule.createDocument(app, swaggerOptions);
+
+  SwaggerModule.setup('api', app, document);
 };

@@ -5,8 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { CarModule } from './carModule/car.module';
 import { SharedModule } from './shared/shared.module';
+import { DistributorModule } from './distributorModule/distributor.module';
 
 import { Car } from './carModule/car.entity';
+import { Distributor } from './distributorModule/distributor.entity';
 
 import { AppController } from './app.controller';
 
@@ -16,6 +18,7 @@ import { AppService } from './app.service';
   imports: [
     CarModule,
     SharedModule,
+    DistributorModule,
 
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -24,11 +27,11 @@ import { AppService } from './app.service';
       username: 'root',
       password: 'root',
       database: 'mysql',
-      entities: [Car],
+      entities: [Car, Distributor],
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
   providers: [AppService],
+  controllers: [AppController]
 })
 export class AppModule { }

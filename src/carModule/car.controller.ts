@@ -16,15 +16,11 @@ export class CarController {
 
   @Get()
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  findCar(@Query() query: Car): Promise<IQueryResponse> {
-    return this.catsService.findCar(query);
-  }
+  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.catsService.findCar(query); }
 
   @Get('count')
   @ApiResponse({ status: 200, type: 'number', description: '成功.' })
-  findCarCount(): Promise<number> {
-    return this.catsService.findCarCount();
-  }
+  findCarCount(): Promise<number> { return this.catsService.findCarCount(); }
 
   @Post('add')
   @ApiResponse({ status: 200, description: '成功.' })
