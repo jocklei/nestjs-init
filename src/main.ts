@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { INestApplication } from '@nestjs/common';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, INestApplication } from '@nestjs/common';
 
 import * as helmet from 'helmet';
 import * as compression from 'compression';

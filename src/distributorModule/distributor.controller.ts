@@ -11,7 +11,6 @@ import { DistributorService } from './distributor.service';
 
 @ApiUseTags('经销商管理')
 @Controller('distributors')
-
 export class DistributorController {
   constructor(private distributorService: DistributorService) { }
 
@@ -26,14 +25,14 @@ export class DistributorController {
   @Post('add')
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async add(@Body() car: Distributor): Promise<InsertResult | IQueryResponseNoDataMsg> {
+  async add(@Body() distributor: Distributor): Promise<InsertResult | IQueryResponseNoDataMsg> {
 
-    const haveDistributor: IQueryResponse = await this.findDistributor(car);
+    const haveDistributor: IQueryResponse = await this.findDistributor(distributor);
 
     if (haveDistributor.count > 0) {
-      return { msg: `${car.name} 已经存在!` };
+      return { msg: `经销商 ${distributor.name} 已经存在!` };
     } else {
-      const result = await this.distributorService.add(car);
+      const result = await this.distributorService.add(distributor);
       return result;
     }
   }

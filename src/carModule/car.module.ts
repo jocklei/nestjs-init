@@ -3,12 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Car } from './car.entity';
 import { CarService } from './car.service';
-import { ConfigModule } from 'src/configModule/configModule';
 
 import { CarController } from './car.controller';
+import { SharedModule } from '../shared/shared.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Car]), ConfigModule],
+  imports: [TypeOrmModule.forFeature([Car]), SharedModule],
   controllers: [CarController],
   providers: [CarService]
 })

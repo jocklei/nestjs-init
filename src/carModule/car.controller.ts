@@ -8,12 +8,11 @@ import { IQueryResponse, IQueryResponseNoDataMsg } from '../core/paging-query';
 
 import { Car } from './car.entity';
 import { CarService } from './car.service';
-import { ConfigService } from '../configModule/config.service';
 
 @ApiUseTags('车型管理')
 @Controller('cars')
 export class CarController {
-  constructor(private catsService: CarService, private config: ConfigService) { }
+  constructor(private catsService: CarService) { }
 
   @Get()
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
@@ -31,14 +30,10 @@ export class CarController {
     const haveCar: IQueryResponse = await this.findCar(car);
 
     if (haveCar.count > 0) {
-      return { msg: `${car.name} 已经存在!` };
+      return { msg: `车型 ${car.name} 已经存在!` };
     } else {
       const result = await this.catsService.add(car);
       return result;
     }
   }
-
-  @Get('config')
-  @ApiResponse({ status: 200, type: Car, description: '成功.' })
-  findConfig() { return this.config; }
 }
