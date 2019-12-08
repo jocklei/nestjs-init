@@ -5,8 +5,8 @@ export const swagger = (app: INestApplication) => {
 
   const swaggerOptions = new DocumentBuilder()
     .setVersion('1.0.0')
-    .setTitle('汽车销售服务管理系统')
     .setBasePath('/api/v1/')
+    .setTitle('汽车销售服务管理系统')
     .setDescription('汽车销售服务管理系统API文档')
     .build();
 
