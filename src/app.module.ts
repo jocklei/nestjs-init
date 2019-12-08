@@ -13,8 +13,6 @@ import { Distributor } from './distributorModule/distributor.entity';
 
 import { AppController } from './app.controller';
 
-import { AppService } from './app.service';
-
 @Module({
   imports: [
     CarModule,
@@ -27,12 +25,12 @@ import { AppService } from './app.service';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'mysql',
+      database: 'test',
       entities: [Car, Distributor],
       synchronize: true,
     }),
   ],
-  providers: [AppService],
+  providers: [],
   controllers: [AppController]
 })
 export class AppModule { }
