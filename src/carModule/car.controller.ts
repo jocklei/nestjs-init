@@ -1,7 +1,7 @@
+import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { Controller, Get, Post, Body, Query, UsePipes } from '@nestjs/common';
 
 import { InsertResult } from 'typeorm';
-import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 
 import { EntityValidationPipe } from '../shared/entityValidationPipe';
 import { IQueryResponse, IQueryResponseNoDataMsg } from '../core/paging-query';
@@ -12,15 +12,15 @@ import { CarService } from './car.service';
 @ApiUseTags('车型管理')
 @Controller('cars')
 export class CarController {
-  constructor(private catsService: CarService) { }
+  constructor(private carsService: CarService) { }
 
   @Get()
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.catsService.findCar(query); }
+  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.findCar(query); }
 
   @Get('count')
   @ApiResponse({ status: 200, type: 'number', description: '成功.' })
-  findCarCount(): Promise<number> { return this.catsService.findCarCount(); }
+  findCarCount(): Promise<number> { return this.carsService.findCarCount(); }
 
   @Post('add')
   @ApiResponse({ status: 200, description: '成功.' })
@@ -32,7 +32,7 @@ export class CarController {
     if (haveCar.count > 0) {
       return { msg: `车型 ${car.name} 已经存在!` };
     } else {
-      const result = await this.catsService.add(car);
+      const result = await this.carsService.add(car);
       return result;
     }
   }
