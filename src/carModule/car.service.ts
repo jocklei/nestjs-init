@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 
 import { IQueryResponse, PagingQuery } from '../core/paging-query';
 
@@ -17,13 +17,13 @@ export class CarService extends PagingQuery {
   }
 
   // 查询车辆信息（通过实体属性查询）
-  async findCar(car?: Car): Promise<IQueryResponse> {
+  async car(car?: Car): Promise<IQueryResponse> {
     const result: [Car[], number] = await this.carsRepository.findAndCount(car);
     return super.handleSuccess(result);
   }
 
   // 查询所有车信息总数
-  findCarCount(): Promise<number> {
+  count(): Promise<number> {
     return this.carsRepository.count();
   }
 

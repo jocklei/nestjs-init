@@ -18,13 +18,13 @@ export class DistributorController {
   @Get()
   @ApiOperation({ summary: '通过实体查询经销商信息' })
   @ApiResponse({ status: 200, type: Distributor, isArray: true, description: '成功.' })
-  findDistributor(@Query() query?: Distributor): Promise<IQueryResponse> { return this.distributorService.findDistributor(query); }
+  findDistributor(@Query() query?: Distributor): Promise<IQueryResponse> { return this.distributorService.distributor(query); }
 
   // 查询经销商总数
   @Get('count')
   @ApiOperation({ summary: '查询经销商总数' })
   @ApiResponse({ status: 200, description: '成功.' })
-  findDistributorCount(): Promise<number> { return this.distributorService.findDistributorCount(); }
+  findDistributorCount(): Promise<number> { return this.distributorService.count(); }
 
   // 添加经销商
   @Post()
