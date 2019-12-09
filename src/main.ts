@@ -6,6 +6,7 @@ import * as compression from 'compression';
 
 import { swagger } from './swagger';
 import { AppModule } from './app.module';
+import { AuthInterceptor } from './core/authentication.interceptor';
 
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule, { cors: true });
@@ -14,6 +15,7 @@ async function bootstrap() {
   app.use(compression()); // 压缩
 
   app.setGlobalPrefix('api/v1'); // setGlobalPrefix() 全局添加前缀
+  app.useGlobalInterceptors(new AuthInterceptor()); // 认证拦截
 
   // app.useGlobalPipes(new ValidationPipe()); // 添加全局管道
 
