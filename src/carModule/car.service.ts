@@ -12,23 +12,23 @@ export class CarService extends PagingQuery {
 
   constructor(
     @InjectRepository(Car)
-    private readonly catsRepository: Repository<Car>) {
+    private readonly carsRepository: Repository<Car>) {
     super();
   }
 
   // 查询车辆信息（通过实体属性查询）
   async findCar(car?: Car): Promise<IQueryResponse> {
-    const result: [Car[], number] = await this.catsRepository.findAndCount(car);
+    const result: [Car[], number] = await this.carsRepository.findAndCount(car);
     return super.handleSuccess(result);
   }
 
   // 查询所有车信息总数
   findCarCount(): Promise<number> {
-    return this.catsRepository.count();
+    return this.carsRepository.count();
   }
 
   // 添加一条车辆信息
   add(car: Car): Promise<InsertResult> {
-    return this.catsRepository.insert(car);
+    return this.carsRepository.insert(car);
   }
 }

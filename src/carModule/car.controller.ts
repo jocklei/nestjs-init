@@ -1,4 +1,4 @@
-import { ApiTags, ApiResponse, ApiImplicitHeader } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { Controller, Get, Post, Body, Query, UsePipes } from '@nestjs/common';
 
 import { InsertResult } from 'typeorm';
@@ -15,15 +15,17 @@ export class CarController {
   constructor(private carsService: CarService) { }
 
   @Get()
+  @ApiOperation({ summary: '通过实体查询车型信息' })
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  @ApiImplicitHeader({ name: 'Authorization', description: 'Auth token' })
   findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.findCar(query); }
 
   @Get('count')
-  @ApiResponse({ status: 200, type: 'number', description: '成功.' })
+  @ApiOperation({ summary: '查询车型总数' })
+  @ApiResponse({ status: 200, description: '成功.' })
   findCarCount(): Promise<number> { return this.carsService.findCarCount(); }
 
   @Post('add')
+  @ApiOperation({ summary: '添加车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
   async add(@Body() car: Car): Promise<InsertResult | IQueryResponseNoDataMsg> {
