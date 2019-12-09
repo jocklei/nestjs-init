@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { Repository, InsertResult } from 'typeorm';
+import { Repository, InsertResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { IQueryResponse, PagingQuery } from '../core/paging-query';
@@ -27,8 +27,13 @@ export class CarService extends PagingQuery {
     return this.carsRepository.count();
   }
 
-  // 添加一条车辆信息
-  add(car: Car): Promise<InsertResult> {
+  // 添加车辆信息
+  insert(car: Car): Promise<InsertResult> {
     return this.carsRepository.insert(car);
+  }
+
+  // 更新车辆信息
+  update(id: number, car: Car): Promise<UpdateResult> {
+    return this.carsRepository.update(id, car);
   }
 }

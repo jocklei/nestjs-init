@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { Repository, InsertResult } from 'typeorm';
+import { Repository, InsertResult, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Distributor } from './distributor.entity';
@@ -25,8 +25,13 @@ export class DistributorService extends PagingQuery {
     return this.distributorRepository.count();
   }
 
-  // 添加一条经销商信息
-  add(distributor: Distributor): Promise<InsertResult> {
+  // 添加经销商信息
+  insert(distributor: Distributor): Promise<InsertResult> {
     return this.distributorRepository.insert(distributor);
+  }
+
+  // 更新经销商信息
+  update(id: number, distributor: Distributor): Promise<UpdateResult> {
+    return this.distributorRepository.update(id, distributor);
   }
 }
