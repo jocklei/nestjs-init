@@ -1,4 +1,4 @@
-import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiImplicitHeader } from '@nestjs/swagger';
 import { Controller, Get, Post, Body, Query, UsePipes } from '@nestjs/common';
 
 import { InsertResult } from 'typeorm';
@@ -9,13 +9,14 @@ import { IQueryResponse, IQueryResponseNoDataMsg } from '../core/paging-query';
 import { Car } from './car.entity';
 import { CarService } from './car.service';
 
-@ApiUseTags('车型管理')
+@ApiTags('车型管理')
 @Controller('cars')
 export class CarController {
   constructor(private carsService: CarService) { }
 
   @Get()
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
+  @ApiImplicitHeader({ name: 'Authorization', description: 'Auth token' })
   findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.findCar(query); }
 
   @Get('count')
