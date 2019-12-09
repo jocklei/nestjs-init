@@ -18,13 +18,13 @@ export class CarController {
   @Get()
   @ApiOperation({ summary: '通过实体查询车型信息' })
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.findCar(query); }
+  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.car(query); }
 
   // 查询车型总数
   @Get('count')
   @ApiOperation({ summary: '查询车型总数' })
   @ApiResponse({ status: 200, description: '成功.' })
-  findCarCount(): Promise<number> { return this.carsService.findCarCount(); }
+  findCarCount(): Promise<number> { return this.carsService.count(); }
 
   // 添加车型
   @Post()
