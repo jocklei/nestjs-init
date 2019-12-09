@@ -1,10 +1,10 @@
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
-import { Controller, Get, Post, Put, Body, Query, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Query, UsePipes, HttpException, HttpStatus } from '@nestjs/common';
 
-import { InsertResult, UpdateResult } from 'typeorm';
+import { InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 
+import { IQueryResponse } from '../core/paging-query';
 import { EntityValidationPipe } from '../shared/entityValidationPipe';
-import { IQueryResponse, IQueryResponseNoDataMsg } from '../core/paging-query';
 
 import { Car } from './car.entity';
 import { CarService } from './car.service';
@@ -31,15 +31,15 @@ export class CarController {
   @ApiOperation({ summary: '添加车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async insert(@Body() car: Car): Promise<InsertResult | IQueryResponseNoDataMsg> {
+  async insert(@Body() car: Car): Promise<InsertResult> {
 
     const haveCar: IQueryResponse = await this.findCar(car);
 
-    if (haveCar.count > 0) {
-      throw new HttpException(`${car.name}已经存在`, HttpStatus.FORBIDDEN);
-    } else {
+    if (haveCar.count === 0) {
       const result = await this.carsService.insert(car);
       return result;
+    } else {
+      throw new HttpException(`${car.name}已经存在`, HttpStatus.FORBIDDEN);
     }
   }
 
@@ -48,15 +48,32 @@ export class CarController {
   @ApiOperation({ summary: '更新车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async update(@Body() car: Car): Promise<UpdateResult | IQueryResponseNoDataMsg> {
+  async update(@Body() car: Car): Promise<UpdateResult> {
+
+    const haveCar: IQueryResponse = await this.findCar(car);
+
+    if (haveCar.count === 0) {
+      const result = await this.carsService.update(car.id, car);
+      return result;
+    } else {
+      throw new HttpException(`${car.name}已经存在`, HttpStatus.FORBIDDEN);
+    }
+  }
+
+  // 删除车型
+  @Delete()
+  @ApiOperation({ summary: '删除车型' })
+  @ApiResponse({ status: 200, description: '成功.' })
+  async delete(@Body() car: Car): Promise<DeleteResult> {
 
     const haveCar: IQueryResponse = await this.findCar(car);
 
     if (haveCar.count > 0) {
-      throw new HttpException(`信息未变更`, HttpStatus.FORBIDDEN);
-    } else {
-      const result = await this.carsService.update(car.id, car);
+      const result = await this.carsService.delete(car);
       return result;
+    } else {
+      throw new HttpException(`没有删除的数据`, HttpStatus.FORBIDDEN);
     }
   }
+
 }

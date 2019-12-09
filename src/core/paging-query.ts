@@ -4,10 +4,6 @@ export interface IQueryResponse {
   count: number;
 }
 
-export interface IQueryResponseNoDataMsg {
-  msg: string;
-}
-
 export class PagingQuery {
 
   handleSuccess(query: any): IQueryResponse {

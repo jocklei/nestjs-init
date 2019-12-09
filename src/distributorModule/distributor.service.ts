@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { Repository, InsertResult, UpdateResult } from 'typeorm';
+import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Distributor } from './distributor.entity';
@@ -33,5 +33,10 @@ export class DistributorService extends PagingQuery {
   // 更新经销商信息
   update(id: number, distributor: Distributor): Promise<UpdateResult> {
     return this.distributorRepository.update(id, distributor);
+  }
+
+  // 删除经销商
+  delete(distributor: Distributor): Promise<DeleteResult> {
+    return this.distributorRepository.delete(distributor);
   }
 }
