@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Car } from '../carModule/car.entity';
+import { User } from 'src/loginModule/user.entity';
 import { Distributor } from '../distributorModule/distributor.entity';
 
 @Module({
@@ -14,7 +15,7 @@ import { Distributor } from '../distributorModule/distributor.entity';
       password: 'root',
       database: 'test',
       synchronize: true,
-      entities: [Car, Distributor]
+      entities: [User, Car, Distributor]
     })
   ]
 })

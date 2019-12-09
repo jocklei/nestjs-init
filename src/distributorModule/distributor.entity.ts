@@ -7,7 +7,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 export class Distributor {
   // Id
   @PrimaryGeneratedColumn()
-  @ApiProperty({ type: 'number', required: false, description: 'id', example: 0 })
+  @ApiProperty({ type: 'number', required: false, description: 'id', example: 1 })
   readonly id: number;
 
   // Name
