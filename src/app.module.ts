@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 
-import { CarModule } from './carModule/car.module';
-import { LoginModule } from './loginModule/login.module';
-import { DatabaseModule } from './databaseModule/database.module';
-import { DistributorModule } from './distributorModule/distributor.module';
+import { CarModule } from './car/car.module';
+import { UsersModule } from './user/user.module';
+import { SignModule } from './sign/sign.module';
+import { DatabaseModule } from './database/database.module';
 
 import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    LoginModule,
+    SignModule,
+    UsersModule,
     CarModule,
     DatabaseModule,
-    DistributorModule,
   ],
   controllers: [AppController]
 })

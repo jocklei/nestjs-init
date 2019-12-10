@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { ConfigModule } from '../configModule/configModule';
+import { ConfigModule } from '../config/configModule';
 
 import { EntityValidationPipe } from './entityValidationPipe';
 

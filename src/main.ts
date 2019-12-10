@@ -17,8 +17,6 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1'); // setGlobalPrefix() 全局添加前缀
   app.useGlobalInterceptors(new AuthInterceptor()); // 认证拦截
 
-  // app.useGlobalPipes(new ValidationPipe()); // 添加全局管道
-
   swagger(app); // Swagger 设置
 
   await app.listen(3000, () => Logger.log(`服务已经启动,请通过localhost:3000访问`));
