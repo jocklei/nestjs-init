@@ -31,4 +31,24 @@ export class SignController {
     return result;
   }
 
+  @Post('signOut')
+  @HttpCode(200)
+  @ApiOperation({ summary: '签出' })
+  @ApiResponse({ status: 200, description: '成功.' })
+  async signOut(@Body() sign: Sign): Promise<HttpException | { message: string }> {
+
+    if (!sign.signName || !sign.password) {
+      throw new HttpException(`登录名和密码不能为空`, HttpStatus.FORBIDDEN);
+    }
+
+    const result = await this.userService.user(sign);
+
+    if (!result) {
+      throw new HttpException(`用户名或密码错误`, HttpStatus.FORBIDDEN);
+    } else {
+      return { message: '签出成功' };
+    }
+
+  }
+
 }
