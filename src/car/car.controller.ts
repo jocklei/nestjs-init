@@ -18,13 +18,13 @@ export class CarController {
   @Get()
   @ApiOperation({ summary: '通过实体查询车型信息' })
   @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  findCar(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.car(query); }
+  car(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.car(query); }
 
   // 查询车型总数
   @Get('count')
   @ApiOperation({ summary: '查询车型总数' })
   @ApiResponse({ status: 200, description: '成功.' })
-  findCarCount(): Promise<number> { return this.carsService.count(); }
+  count(): Promise<number> { return this.carsService.count(); }
 
   // 添加车型
   @Post()
@@ -33,7 +33,7 @@ export class CarController {
   @UsePipes(EntityValidationPipe)
   async insert(@Body() car: Car): Promise<InsertResult> {
 
-    const haveCar: IQueryResponse = await this.findCar(car);
+    const haveCar: IQueryResponse = await this.car(car);
 
     if (haveCar.count === 0) {
       const result = await this.carsService.insert(car);
@@ -50,7 +50,7 @@ export class CarController {
   @UsePipes(EntityValidationPipe)
   async update(@Body() car: Car): Promise<UpdateResult> {
 
-    const haveCar: IQueryResponse = await this.findCar(car);
+    const haveCar: IQueryResponse = await this.car(car);
 
     if (haveCar.count === 0) {
       const result = await this.carsService.update(car.id, car);
@@ -66,7 +66,7 @@ export class CarController {
   @ApiResponse({ status: 200, description: '成功.' })
   async delete(@Body() car: Car): Promise<DeleteResult> {
 
-    const haveCar: IQueryResponse = await this.findCar(car);
+    const haveCar: IQueryResponse = await this.car(car);
 
     if (haveCar.count > 0) {
       const result = await this.carsService.delete(car);

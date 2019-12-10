@@ -18,10 +18,10 @@ export class UserController {
   @Get()
   @ApiOperation({ summary: '通过实体查询用户信息' })
   @ApiResponse({ status: 200, type: User, isArray: true, description: '成功.' })
-  async findDistributor(@Query() query?: User): Promise<IQueryResponse> {
+  async user(@Query() query?: User): Promise<IQueryResponse> {
     const result: IQueryResponse = await this.usersService.users(query);
 
-    result.data.map((item: User) => item.password = '******');
+    result.data.map((item: User) => delete item.password);
 
     return result;
   }
@@ -30,7 +30,7 @@ export class UserController {
   @Get('count')
   @ApiOperation({ summary: '查询用户总数' })
   @ApiResponse({ status: 200, description: '成功.' })
-  findDistributorCount(): Promise<number> { return this.usersService.count(); }
+  count(): Promise<number> { return this.usersService.count(); }
 
   // 添加用户
   @Post()
@@ -38,8 +38,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
   async insert(@Body() user: User): Promise<InsertResult> {
-
-    const haveUser: IQueryResponse = await this.findDistributor(user);
+    const haveUser: IQueryResponse = await this.user(user);
 
     if (haveUser.count === 0) {
       const result = await this.usersService.insert(user);
@@ -56,7 +55,7 @@ export class UserController {
   @UsePipes(EntityValidationPipe)
   async update(@Body() user: User): Promise<UpdateResult> {
 
-    const haveUser: IQueryResponse = await this.findDistributor(user);
+    const haveUser: IQueryResponse = await this.user(user);
 
     if (haveUser.count === 0) {
       const result = await this.usersService.update(user.id, user);
@@ -72,7 +71,7 @@ export class UserController {
   @ApiResponse({ status: 200, description: '成功.' })
   async delete(@Body() user: User): Promise<DeleteResult> {
 
-    const haveUser: IQueryResponse = await this.findDistributor(user);
+    const haveUser: IQueryResponse = await this.user(user);
 
     if (haveUser.count > 0) {
       const result = await this.usersService.delete(user);

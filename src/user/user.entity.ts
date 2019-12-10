@@ -41,6 +41,6 @@ export class User {
   @IsNumber({ allowNaN: false, allowInfinity: false }, { message: '年龄必须为整数类型' })
   @Min(10, { message: '年龄最小10岁' })
   @ApiProperty({ type: 'number', required: false, description: '年龄', example: '18' })
-  age?: string;
+  age?: number;
 
 }
