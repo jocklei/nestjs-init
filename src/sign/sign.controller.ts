@@ -22,11 +22,13 @@ export class SignController {
       throw new HttpException(`登录名和密码不能为空`, HttpStatus.FORBIDDEN);
     }
 
-    const result = await this.userService.user(sign);
+    const result: User = await this.userService.user(sign);
 
     if (!result) {
       throw new HttpException(`用户名或密码错误`, HttpStatus.FORBIDDEN);
     }
+
+    delete result.password;
 
     return result;
   }
