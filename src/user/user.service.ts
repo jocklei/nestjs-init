@@ -16,14 +16,14 @@ export class UserService extends PagingQuery {
   }
 
   // 查询用户信息（通过实体属性查询）
-  async user(user?: User): Promise<IQueryResponse> {
+  async users(user?: User): Promise<IQueryResponse> {
     const result: [User[], number] = await this.userRepository.findAndCount(user);
 
     return super.handleSuccess(result);
   }
 
   // 查询用户信息
-  async userOne(user?: User): Promise<User> {
+  async user(user?: User): Promise<User> {
     const result: User = await this.userRepository.findOne(user);
     return result;
   }

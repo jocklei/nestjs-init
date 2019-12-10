@@ -18,7 +18,13 @@ export class UserController {
   @Get()
   @ApiOperation({ summary: '通过实体查询用户信息' })
   @ApiResponse({ status: 200, type: User, isArray: true, description: '成功.' })
-  findDistributor(@Query() query?: User): Promise<IQueryResponse> { return this.usersService.user(query); }
+  async findDistributor(@Query() query?: User): Promise<IQueryResponse> {
+    const result: IQueryResponse = await this.usersService.users(query);
+
+    result.data.map((item: User) => item.password = '******');
+
+    return result;
+  }
 
   // 查询用户总数
   @Get('count')
