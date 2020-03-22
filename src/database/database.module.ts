@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Car } from '../car/car.entity';
-import { User } from '../user/user.entity';
+import { CarDto } from 'src/car/CarDto';
+import { UserDto } from '../user/UserDto';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import { User } from '../user/user.entity';
       password: 'root',
       database: 'test',
       synchronize: true,
-      entities: [User, Car]
+      entities: [UserDto, CarDto]
     })
   ]
 })

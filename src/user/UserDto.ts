@@ -4,7 +4,7 @@ import { Length, IsString, Min, IsNumber } from 'class-validator';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class UserDto {
   // Id
   @PrimaryGeneratedColumn()
   @ApiProperty({ type: 'number', required: false, description: 'id', example: 1 })

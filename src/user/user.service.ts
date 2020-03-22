@@ -5,26 +5,26 @@ import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 
 import { IQueryResponse, PagingQuery } from '../core/paging-query';
 
-import { User } from './user.entity';
+import { UserDto } from './UserDto';
 
 @Injectable()
 export class UserService extends PagingQuery {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>) {
+    @InjectRepository(UserDto)
+    private readonly userRepository: Repository<UserDto>) {
     super();
   }
 
   // 查询用户信息（通过实体属性查询）
-  async users(user?: User): Promise<IQueryResponse> {
-    const result: [User[], number] = await this.userRepository.findAndCount(user);
+  async users(user?: UserDto): Promise<IQueryResponse> {
+    const result: [UserDto[], number] = await this.userRepository.findAndCount(user);
 
     return super.handleSuccess(result);
   }
 
   // 查询用户信息
-  async user(user?: User): Promise<User> {
-    const result: User = await this.userRepository.findOne(user);
+  async user(user?: UserDto): Promise<UserDto> {
+    const result: UserDto = await this.userRepository.findOne(user);
     return result;
   }
 
@@ -34,17 +34,17 @@ export class UserService extends PagingQuery {
   }
 
   // 添加用户信息
-  insert(user: User): Promise<InsertResult> {
+  insert(user: UserDto): Promise<InsertResult> {
     return this.userRepository.insert(user);
   }
 
   // 更新用户信息
-  update(id: number, user: User): Promise<UpdateResult> {
+  update(id: number, user: UserDto): Promise<UpdateResult> {
     return this.userRepository.update(id, user);
   }
 
   // 删除用户
-  delete(user: User): Promise<DeleteResult> {
+  delete(user: UserDto): Promise<DeleteResult> {
     return this.userRepository.delete(user);
   }
 }

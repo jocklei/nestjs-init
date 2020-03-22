@@ -3,10 +3,10 @@ import { Controller, Get, Post, Put, Delete, Body, Query, UsePipes, HttpExceptio
 
 import { InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 
+import { CarDto } from './CarDto';
 import { IQueryResponse } from '../core/paging-query';
 import { EntityValidationPipe } from '../shared/entityValidationPipe';
 
-import { Car } from './car.entity';
 import { CarService } from './car.service';
 
 @ApiTags('车型管理')
@@ -17,8 +17,8 @@ export class CarController {
   // 查询车型
   @Get()
   @ApiOperation({ summary: '通过实体查询车型信息' })
-  @ApiResponse({ status: 200, type: Car, isArray: true, description: '成功.' })
-  car(@Query() query?: Car): Promise<IQueryResponse> { return this.carsService.car(query); }
+  @ApiResponse({ status: 200, type: CarDto, isArray: true, description: '成功.' })
+  car(@Query() query?: CarDto): Promise<IQueryResponse> { return this.carsService.car(query); }
 
   // 查询车型总数
   @Get('count')
@@ -31,7 +31,7 @@ export class CarController {
   @ApiOperation({ summary: '添加车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async insert(@Body() car: Car): Promise<InsertResult> {
+  async insert(@Body() car: CarDto): Promise<InsertResult> {
 
     const haveCar: IQueryResponse = await this.car(car);
 
@@ -48,7 +48,7 @@ export class CarController {
   @ApiOperation({ summary: '更新车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async update(@Body() car: Car): Promise<UpdateResult> {
+  async update(@Body() car: CarDto): Promise<UpdateResult> {
 
     const haveCar: IQueryResponse = await this.car(car);
 
@@ -64,7 +64,7 @@ export class CarController {
   @Delete()
   @ApiOperation({ summary: '删除车型' })
   @ApiResponse({ status: 200, description: '成功.' })
-  async delete(@Body() car: Car): Promise<DeleteResult> {
+  async delete(@Body() car: CarDto): Promise<DeleteResult> {
 
     const haveCar: IQueryResponse = await this.car(car);
 

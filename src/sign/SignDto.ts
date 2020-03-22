@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class Sign {
+export class SignDto {
 
   @ApiProperty({ type: 'text', required: true, description: '签入名', example: 'zhangsan' })
   signName: string;

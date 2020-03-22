@@ -19,6 +19,6 @@ async function bootstrap() {
 
   swagger(app); // Swagger 设置
 
-  await app.listen(3000, () => Logger.log(`服务已经启动,请通过localhost:3000访问`));
+  await app.listen(3000, () => Logger.log(`Service started,port:3000`));
 }
 bootstrap();

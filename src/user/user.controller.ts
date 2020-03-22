@@ -3,7 +3,7 @@ import { Controller, Get, Post, Put, Delete, Body, Query, UsePipes, HttpExceptio
 import { InsertResult, UpdateResult, DeleteResult } from 'typeorm';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 
-import { User } from './user.entity';
+import { UserDto } from './UserDto';
 import { IQueryResponse } from '../core/paging-query';
 import { EntityValidationPipe } from '../shared/entityValidationPipe';
 
@@ -17,11 +17,11 @@ export class UserController {
   // 查询用户
   @Get()
   @ApiOperation({ summary: '通过实体查询用户信息' })
-  @ApiResponse({ status: 200, type: User, isArray: true, description: '成功.' })
-  async user(@Query() query?: User): Promise<IQueryResponse> {
+  @ApiResponse({ status: 200, type: UserDto, isArray: true, description: '成功.' })
+  async user(@Query() query?: UserDto): Promise<IQueryResponse> {
     const result: IQueryResponse = await this.usersService.users(query);
 
-    result.data.map((item: User) => delete item.password);
+    result.data.map((item: UserDto) => delete item.password);
 
     return result;
   }
@@ -37,7 +37,7 @@ export class UserController {
   @ApiOperation({ summary: '添加用户' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async insert(@Body() user: User): Promise<InsertResult> {
+  async insert(@Body() user: UserDto): Promise<InsertResult> {
     const haveUser: IQueryResponse = await this.user(user);
 
     if (haveUser.count === 0) {
@@ -53,7 +53,7 @@ export class UserController {
   @ApiOperation({ summary: '更新用户' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
-  async update(@Body() user: User): Promise<UpdateResult> {
+  async update(@Body() user: UserDto): Promise<UpdateResult> {
 
     const haveUser: IQueryResponse = await this.user(user);
 
@@ -69,7 +69,7 @@ export class UserController {
   @Delete()
   @ApiOperation({ summary: '删除用户' })
   @ApiResponse({ status: 200, description: '成功.' })
-  async delete(@Body() user: User): Promise<DeleteResult> {
+  async delete(@Body() user: UserDto): Promise<DeleteResult> {
 
     const haveUser: IQueryResponse = await this.user(user);
 
