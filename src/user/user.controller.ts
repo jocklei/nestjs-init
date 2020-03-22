@@ -16,7 +16,7 @@ export class UserController {
 
   // 查询用户
   @Get()
-  @ApiOperation({ summary: '通过实体查询用户信息' })
+  @ApiOperation({ summary: '用户列表' })
   @ApiResponse({ status: 200, type: UserDto, isArray: true, description: '成功.' })
   async user(@Query() query?: UserDto): Promise<IQueryResponse> {
     const result: IQueryResponse = await this.usersService.users(query);
@@ -28,7 +28,7 @@ export class UserController {
 
   // 查询用户总数
   @Get('count')
-  @ApiOperation({ summary: '查询用户总数' })
+  @ApiOperation({ summary: '用户总数' })
   @ApiResponse({ status: 200, description: '成功.' })
   count(): Promise<number> { return this.usersService.count(); }
 
