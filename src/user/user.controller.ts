@@ -10,12 +10,12 @@ import { EntityValidationPipe } from '../shared/entityValidationPipe';
 import { UserService } from './user.service';
 
 @ApiTags('用户管理')
-@Controller('users')
+@Controller()
 export class UserController {
   constructor(private usersService: UserService) { }
 
   // 查询用户
-  @Get()
+  @Get('users')
   @ApiOperation({ summary: '用户列表' })
   @ApiResponse({ status: 200, type: UserDto, isArray: true, description: '成功.' })
   async user(@Query() query?: UserDto): Promise<IQueryResponse> {
@@ -27,13 +27,13 @@ export class UserController {
   }
 
   // 查询用户总数
-  @Get('count')
+  @Get('users/count')
   @ApiOperation({ summary: '用户总数' })
   @ApiResponse({ status: 200, description: '成功.' })
   count(): Promise<number> { return this.usersService.count(); }
 
   // 添加用户
-  @Post()
+  @Post('user')
   @ApiOperation({ summary: '添加用户' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
@@ -49,7 +49,7 @@ export class UserController {
   }
 
   // 更新用户
-  @Put()
+  @Put('user')
   @ApiOperation({ summary: '更新用户' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
@@ -66,7 +66,7 @@ export class UserController {
   }
 
   // 删除用户
-  @Delete()
+  @Delete('user')
   @ApiOperation({ summary: '删除用户' })
   @ApiResponse({ status: 200, description: '成功.' })
   async delete(@Body() user: UserDto): Promise<DeleteResult> {

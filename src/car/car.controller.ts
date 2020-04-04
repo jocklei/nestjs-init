@@ -10,24 +10,24 @@ import { EntityValidationPipe } from '../shared/entityValidationPipe';
 import { CarService } from './car.service';
 
 @ApiTags('车型管理')
-@Controller('cars')
+@Controller()
 export class CarController {
   constructor(private carsService: CarService) { }
 
   // 查询车型
-  @Get()
-  @ApiOperation({ summary: '通过实体查询车型信息' })
+  @Get('cars')
+  @ApiOperation({ summary: '车型列表' })
   @ApiResponse({ status: 200, type: CarDto, isArray: true, description: '成功.' })
   car(@Query() query?: CarDto): Promise<IQueryResponse> { return this.carsService.car(query); }
 
   // 查询车型总数
-  @Get('count')
-  @ApiOperation({ summary: '查询车型总数' })
+  @Get('cars/count')
+  @ApiOperation({ summary: '车型总数' })
   @ApiResponse({ status: 200, description: '成功.' })
   count(): Promise<number> { return this.carsService.count(); }
 
   // 添加车型
-  @Post()
+  @Post('car')
   @ApiOperation({ summary: '添加车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
@@ -44,7 +44,7 @@ export class CarController {
   }
 
   // 更新车型
-  @Put()
+  @Put('car')
   @ApiOperation({ summary: '更新车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   @UsePipes(EntityValidationPipe)
@@ -61,7 +61,7 @@ export class CarController {
   }
 
   // 删除车型
-  @Delete()
+  @Delete('car')
   @ApiOperation({ summary: '删除车型' })
   @ApiResponse({ status: 200, description: '成功.' })
   async delete(@Body() car: CarDto): Promise<DeleteResult> {
