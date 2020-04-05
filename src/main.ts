@@ -11,8 +11,8 @@ import { AuthInterceptor } from './core/authentication.interceptor';
 async function bootstrap() {
   const app: INestApplication = await NestFactory.create(AppModule, { cors: true });
 
-  app.use(helmet()); // helmet() 阻止跨站脚本攻击
-  app.use(compression()); // 压缩
+  app.use(helmet()); // helmet() 阻止跨站脚本攻击中间件
+  app.use(compression()); // 压缩中间件
 
   app.setGlobalPrefix('api/v1'); // setGlobalPrefix() 全局添加前缀
   app.useGlobalInterceptors(new AuthInterceptor()); // 认证拦截

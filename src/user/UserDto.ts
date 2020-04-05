@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Length, IsString, Min, IsNumber } from 'class-validator';
+import { Length, IsString, Min, IsNumber, IsNotEmpty } from 'class-validator';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -12,6 +12,7 @@ export class UserDto {
 
   // SignName
   @Column('varchar')
+  @IsNotEmpty()
   @IsString({ message: '必须为字符串类型' })
   @Length(2, 20, { message: '长度不能小于2个字符，不能大于20个字符' })
   @ApiProperty({ type: 'text', required: false, description: '登录名', example: 'zhangsan' })
@@ -26,6 +27,7 @@ export class UserDto {
 
   // Password
   @Column('varchar')
+  @IsNotEmpty()
   @Length(4, 10, { message: '长度不能小于4个字符，不能大于10个字符' })
   @ApiProperty({ type: 'text', required: false, description: '登录密码', example: '123456' })
   password: string;

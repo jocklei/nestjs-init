@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 
 import { CarModule } from './car/car.module';
-import { UsersModule } from './user/user.module';
 import { SignModule } from './sign/sign.module';
+import { UsersModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 
 import { AppController } from './app.controller';
