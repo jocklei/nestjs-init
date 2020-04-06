@@ -6,8 +6,9 @@ import * as helmet from 'helmet';
 import * as compression from 'compression';
 import * as rateLimit from 'express-rate-limit';
 
-import { swagger } from './swagger';
 import { AppModule } from './app.module';
+
+import { swagger } from './swagger';
 import { AuthInterceptor } from './core/authentication.interceptor';
 
 async function bootstrap() {
@@ -25,14 +26,14 @@ async function bootstrap() {
     message: 'The system has detected that your request is illegal and has been blocked.'
   });
 
-  app.use(csurf()); // 阻止跨站点请求伪造中间件
-  app.use(helmet()); // 阻止跨站脚本攻击中间件
-  app.use(compression()); // 压缩中间件
+  app.use(csurf()); // 阻止跨站点请求伪造
+  app.use(helmet()); // 阻止跨站脚本攻击
+  app.use(compression()); // 开启gzip压缩
   app.use(limiter); // 限速暴力攻击
 
   app.useGlobalPipes(validationPipeOptions);
 
-  app.setGlobalPrefix('api/v1'); // setGlobalPrefix() 全局添加前缀
+  app.setGlobalPrefix('api/v1'); // 添加全局前缀
   app.useGlobalInterceptors(new AuthInterceptor()); // 认证拦截
 
   swagger(app); // Swagger 设置
